@@ -1,0 +1,105 @@
+users
+    - name
+    - email
+    - password
+    - phone
+    - address
+    - type
+        - Admin
+        - Staff
+        - Customer
+    - status
+
+    catagories
+    - name
+    - status
+
+    brands
+    - name
+    - status
+
+    products
+    - name
+    - description
+    - summary
+    - price
+    - discounted_price
+    - images
+    - catagoryID
+    - brandID
+    - status
+    - featured
+
+    reviews
+    - comment
+    - rating
+    - productId
+    - userId
+    
+    orders
+    - userId
+    - status
+        - Processing
+        - Confirmed
+        - Shipping
+        - Delivered
+        - Cancelled
+
+    order_details
+    - orderId
+    - productId
+    - price
+    - qty
+    - total
+
+
+
+///
+
+users
+- name
+- email
+- password
+- phone
+- address
+- type
+    - Admin
+    - Staff
+    - Customer
+- status
+categories
+- name
+- status
+brands
+- name
+- status
+products
+- name
+- description
+- summary
+- price
+- discounted_price
+- images
+- categoryId
+- brandId
+- status
+- featured
+reviews
+- comment
+- rating
+- productId
+- userId
+orders
+- userId
+- status
+    - Processing
+    - Confirmed
+    - Shipping
+    - Delivered
+    - Cancelled
+order_details
+- orderId
+- productId
+- price
+- qty
+- total
