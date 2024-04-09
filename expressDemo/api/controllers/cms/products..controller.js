@@ -1,6 +1,7 @@
 const { errorHandle, validationError, notFoundError } = require("../../lib");
 const { Product, Catagory } = require("../../models");
 const { unlinkSync } = require("node:fs");
+const mongoose = require("mongoose");
 class ProductController {
   index = async (req, res, next) => {
     try {
@@ -79,7 +80,7 @@ class ProductController {
   show = async (req, res, next) => {
     try {
       let products = await Product.aggregate()
-        .match({ _id: req.params.id })
+        .match({ _id: new mongoose.Types.ObjectId(req.params.id) })
         .lookup({
           from: "catagories",
           localField: "catagoryId",
