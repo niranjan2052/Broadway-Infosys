@@ -2,6 +2,7 @@ const express = require("express");
 const AuthRoutes = require("./auth");
 const CmsRoutes = require("./cms");
 const ProfileRoutes = require("./profile");
+const FrontRoutes = require("./front");
 const { auth, cmsAccess } = require("@/lib");
 
 const router = express.Router();
@@ -14,6 +15,7 @@ router.get("/image/:filename", (req, res, next) => {
     root: "./",
   });
 });
+router.use(FrontRoutes);
 
 module.exports = router;
 
