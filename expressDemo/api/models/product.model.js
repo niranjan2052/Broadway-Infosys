@@ -14,7 +14,7 @@ const Product = model(
       catagoryId: { type: Schema.Types.ObjectId, required: true },
       brandId: { type: Schema.Types.ObjectId, rquired: true },
       status: { type: Boolean, default: true },
-      featured: { type: String, required: true },
+      featured: { type: Boolean, default: false },
     },
     modelConfig
   )
