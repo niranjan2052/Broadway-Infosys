@@ -1,4 +1,4 @@
-const { Product } = require("../../models");
+const { Product, Review } = require("../../models");
 const { errorHandle, notFoundError } = require("../../lib");
 const { Types } = require("mongoose");
 
@@ -57,36 +57,86 @@ class ProductController {
   };
   byId = async (req, res, next) => {
     try {
-      const product = await Product.aggregate()
+      let product = await Product.aggregate()
         .match({ status: true, _id: new Types.ObjectId(req.params.id) })
-        .lookup({
-          from: "reviews",
-          localField: "_id",
-          foreignField: "productId",
-          as: "reviews",
-        })
         .lookup({
           from: "brands",
           localField: "brandId",
-          foreignField: "brandsId",
+          foreignField: "_id",
           as: "brand",
         });
 
       if (product.length > 0) {
-        let data = product[0];
-        data.brand = data.brand[0];
+        product = product[0];
+        product.brand = product.brand[0];
 
-        res.send(data);
+        let reviews = await Review.aggregate()
+          .match({ productId: product._id })
+          .lookup({
+            from: "users",
+            localField: "userId",
+            foreignField: "_id",
+            as: "user",
+          });
+
+        for (let i in reviews) {
+          reviews[i].user = reviews[i].user[0];
+        }
+
+        product.reviews = reviews;
+
+        res.send(product);
       } else {
         return notFoundError("Product", next);
       }
-    } catch (err) {
-      return errorHandle(err, next);
+    } catch (error) {
+      return errorHandle(error, next);
     }
   };
-  similar = async (req, res, next) => {};
-  review = async (req, res, next) => {};
-  search = async (req, res, next) => {};
+  similar = async (req, res, next) => {
+    try {
+      const product = await Product.findOne({
+        status: true,
+        _id: req.params.id,
+      });
+      const similar = await Product.find({
+        status: true,
+        catagoryId: product.catagoryId,
+        _id: { $ne: product._id },
+      });
+      res.send(similar);
+    } catch (error) {
+      return errorHandle(error, next);
+    }
+  };
+  review = async (req, res, next) => {
+    try {
+      const { comment, rating } = req.body;
+      await Review.create({
+        comment,
+        rating,
+        userId: req.uid,
+        productId: req.params.id,
+      });
+      res.send({
+        message: "Thank YOU!! For your Review!",
+      });
+    } catch (error) {
+      return errorHandle(error, next);
+    }
+  };
+  search = async (req, res, next) => {
+    try {
+      const products = await Product.find({
+        status: true,
+        name: { $regex: req.query.term, $options: "i" },
+      });
+
+      res.send(products);
+    } catch (error) {
+      return errorHandle(error, next);
+    }
+  };
 }
 
 module.exports = new ProductController();

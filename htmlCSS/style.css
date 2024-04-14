@@ -1,0 +1,84 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.mainContainer .navBar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 10vh;
+  border-bottom: 1px solid black;
+}
+
+.mainContainer .navBar .menu ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  width: 200px;
+  cursor: pointer;
+}
+
+.mainContainer .navBar .menu ul li:hover {
+    padding: 0 5px;
+    border-bottom: 2px solid black;
+}
+
+.mainContainer .landingPage {
+  display: flex;
+  width: 100%;
+  height: 80vh;
+}
+
+.landingPage .left {
+  margin: 100px 20px;
+  width: 50%;
+}
+
+.landingPage .left > * {
+  padding: 10px 0px;
+}
+
+.landingPage .left .button {
+  padding: 5px 15px;
+  cursor: pointer;
+}
+.landingPage .left #email {
+  padding: 5px;
+  cursor: text;
+}
+
+.landingPage .right {
+  width: 50%;
+}
+
+.landingPage .right img {
+  position: relative;
+  display: flex;
+  width: 400px;
+  margin: auto;
+  z-index: -1;
+}
+
+.mainContainer .footer {
+  display: flex;
+  padding: 20px 0;
+  border-top: 1px solid black;
+  background-color: white;
+}
+.mainContainer .footer div:hover {
+  border-bottom: 2px solid black;
+  border-top: 2px solid black;
+}
+
+.mainContainer .footer div {
+  display: flex;
+  margin: 5px 10px;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+.mainContainer .navBar .button {
+  list-style-type: none;
+  cursor: pointer;
+}

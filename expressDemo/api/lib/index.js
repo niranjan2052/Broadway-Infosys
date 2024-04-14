@@ -89,6 +89,16 @@ const adminAccess = (req, res, next) => {
   next();
 };
 
+const customerAccess = (req, res, next) => {
+  if (req.user.role != "Customer") {
+    return next({
+      message: "Access Denied",
+      staus: 403,
+    });
+  }
+  next();
+};
+
 const notFoundError = (name, next) => {
   return next({
     message: `${name} not found!!`,
@@ -132,6 +142,7 @@ module.exports = {
   validationError,
   cmsAccess,
   adminAccess,
+  customerAccess,
   notFoundError,
   upload
 };

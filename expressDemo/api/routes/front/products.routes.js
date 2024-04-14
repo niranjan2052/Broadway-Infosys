@@ -1,6 +1,6 @@
 const express = require("express");
 const { Front } = require("../../controllers");
-const { auth } = require("../../lib");
+const { auth, customerAccess } = require("../../lib");
 
 const router = express.Router();
 
@@ -10,6 +10,6 @@ router.get("/top", Front.ProductController.top);
 router.get("/search", Front.ProductController.search);
 router.get("/:id", Front.ProductController.byId);
 router.get("/:id/similar", Front.ProductController.similar);
-router.post("/:id/review", auth, Front.ProductController.review);
+router.post("/:id/review", auth, customerAccess, Front.ProductController.review);
 
 module.exports = router;

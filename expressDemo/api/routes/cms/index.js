@@ -1,17 +1,21 @@
 const express = require("express");
 
-const StaffsRoutes = require("./staffs.routes");
-const CustomerRoutes = require("./customer.routes");
-const BrandRoutes = require("./brand.routes");
-const CatagoryRoutes = require("./catagory.routes");
-const ProductRoutes = require("./products.routes");
+const staffsRoutes = require("./staffs.routes");
+const customerRoutes = require("./customer.routes");
+const brandRoutes = require("./brand.routes");
+const catagoryRoutes = require("./catagory.routes");
+const productRoutes = require("./products.routes");
+const reviewRoutes = require("./reviews.routes");
+const orderRoutes = require("./orders.routes");
 const router = express.Router();
 const { adminAccess } = require("@/lib");
 
-router.use("/staffs", adminAccess, StaffsRoutes);
-router.use("/customer", CustomerRoutes);
-router.use("/brand", BrandRoutes);
-router.use("/catagory", CatagoryRoutes);
-router.use("/products",ProductRoutes);
+router.use("/staffs", adminAccess, staffsRoutes);
+router.use("/customer", customerRoutes);
+router.use("/brand", brandRoutes);
+router.use("/catagory", catagoryRoutes);
+router.use("/products",productRoutes);
+router.use("/reviews",reviewRoutes);
+router.use("/orders",orderRoutes);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const express = require("express");
 
-const { Auth } = require("@/controllers");
+const { Auth } = require("../../controllers");
+const { customerAccess } = require("../../lib");
 
 const router = express.Router();
 
@@ -14,6 +15,12 @@ router
   .put(Auth.ProfileController.update)
   .patch(Auth.ProfileController.update);
 
-router.route("/password").put(Auth.ProfileController.updatePassword).patch(Auth.ProfileController.updatePassword)
+router
+  .route("/password")
+  .put(Auth.ProfileController.updatePassword)
+  .patch(Auth.ProfileController.updatePassword);
+
+router.get("/reviews", customerAccess, Auth.ProfileController.reviews);
+router.get("/orders", customerAccess, Auth.ProfileController.orders);
 
 module.exports = router;

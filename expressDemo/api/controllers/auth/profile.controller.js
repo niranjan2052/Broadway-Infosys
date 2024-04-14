@@ -1,6 +1,7 @@
 const { errorHandle, validationError } = require("../../lib");
-const { User } = require("../../models");
+const { User, Review, Order, OrderDetail } = require("../../models");
 const bcrypt = require("bcryptjs");
+const { Types } = require("mongoose");
 class ProfileController {
   show = async (req, res, next) => {
     res.send(req.user);
@@ -16,7 +17,7 @@ class ProfileController {
         message: "Profile updated Successfully",
       });
     } catch (error) {
-      errorHandle(error, next);
+      return errorHandle(error, next);
     }
   };
 
@@ -44,7 +45,52 @@ class ProfileController {
         });
       }
     } catch (error) {
-      errorHandle(error, next);
+      return errorHandle(error, next);
+    }
+  };
+
+  reviews = async (req, res, next) => {
+    try {
+      let reviews = await Review.aggregate()
+        .match({ userId: new Types.ObjectId(req.uid) })
+        .lookup({
+          from: "products",
+          localField: "productId",
+          foreignField: "_id",
+          as: "product",
+        });
+
+      for (let i in reviews) {
+        reviews[i].product = reviews[i].product[0];
+      }
+      res.send(reviews);
+    } catch (error) {
+      return errorHandle(error, next);
+    }
+  };
+  orders = async (req, res, next) => {
+    try {
+      let orders = await Order.aggregate().match({
+        userId: new Types.ObjectId(req.uid),
+      });
+
+      for (let i in orders) {
+        orders[i].details = await OrderDetail.aggregate()
+          .match({ orderId: orders[i]._id })
+          .lookup({
+            from: "products",
+            localField: "productId",
+            foreignField: "_id",
+            as: "product",
+          });
+
+          for(let j in orders[i].details){
+            orders[i].details[j].product = orders[i].details[j].product[0];
+          }
+      }
+      res.send(orders);
+    } catch (error) {
+      return errorHandle(error, next);
     }
   };
 }

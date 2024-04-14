@@ -12,7 +12,7 @@ class BrandController {
         });
       }
     } catch (error) {
-      errorHandle(error, next);
+      return errorHandle(error, next);
     }
   };
   store = async (req, res, next) => {
@@ -30,7 +30,7 @@ class BrandController {
         });
       }
     } catch (error) {
-      errorHandle(error, next);
+      return errorHandle(error, next);
     }
   };
   show = async (req, res, next) => {
@@ -42,7 +42,7 @@ class BrandController {
         return notFoundError("Brand",next);
       }
     } catch (error) {
-      errorHandle(error, next);
+      return errorHandle(error, next);
     }
   };
   update = async (req, res, next) => {
@@ -59,7 +59,7 @@ class BrandController {
         return notFoundError("Brand",next);
       }
     } catch (error) {
-      errorHandle(error, next);
+      return errorHandle(error, next);
     }
   };
   destroy = async (req, res, next) => {
@@ -75,7 +75,7 @@ class BrandController {
         return notFoundError("Brand",next);
       }
     } catch (error) {
-      errorHandle(error, next);
+      return errorHandle(error, next);
     }
   };
 }
