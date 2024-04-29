@@ -4,3 +4,5 @@ node_modules*
 /js-test
 /expressDemo/api/uploads/
 /htmlCSS
+/react-cra
+/react-vite
