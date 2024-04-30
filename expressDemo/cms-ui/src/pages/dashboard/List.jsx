@@ -1,5 +1,7 @@
+import { Col } from "react-bootstrap"
+
 export const List =()=>{
     return (
-        <div>Hello</div>
+        <Col className="bg-body-secondary">Hello</Col>
     )
 }
