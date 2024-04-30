@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "@/components";
-import * as Pages from "@/pages";
+import * as Pages from "../pages";
 
 export const CmsRoutes = () => {
   return (
@@ -8,6 +8,7 @@ export const CmsRoutes = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Pages.Dashboard.List />}></Route>
+          <Route path="login" element={<Pages.Auth.Login />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
