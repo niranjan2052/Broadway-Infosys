@@ -8,7 +8,7 @@ export const Login = () => {
         lg={5}
         sm={8}
         xs={10}
-        className="bg-white py-3 my-3 rounded-2 shadow-sm"
+        className="bg-white py-3 my-5 rounded-2 shadow-sm mx-auto"
       >
         <Row>
             <Col className="text-center">
