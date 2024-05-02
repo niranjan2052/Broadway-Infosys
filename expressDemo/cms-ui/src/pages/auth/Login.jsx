@@ -1,6 +1,23 @@
-import { Col, Row } from "react-bootstrap";
+import { useFormik } from "formik";
+import { Col, Form, Row, Button } from "react-bootstrap";
+import { FormInput } from "@/components";
+import * as Yup from "yup";
+import { useState } from "react";
 
 export const Login = () => {
+  const [remember, setRemember] = useState(false);
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().required().email(),
+      password: Yup.string().required(),
+    }),
+    onSubmit: (value) => {},
+  });
+
   return (
     <>
       <Col
@@ -11,9 +28,49 @@ export const Login = () => {
         className="bg-white py-3 my-5 rounded-2 shadow-sm mx-auto"
       >
         <Row>
-            <Col className="text-center">
-                <h1>Login</h1>
-            </Col>
+          <Col className="text-center">
+            <h1>Login</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form onSubmit={formik.handleSubmit}>
+              <FormInput
+                formik={formik}
+                type="email"
+                name="email"
+                label="Email"
+                required
+                placeholder="Enter your Email"
+              />
+              <FormInput
+                formik={formik}
+                type="password"
+                name="password"
+                label="Password"
+                required
+                placeholder="Enter your Password"
+              />
+              <Form.Check className="mb-3">
+                <Form.Check.Input
+                  name="remember"
+                  id="remember"
+                  value={true}
+                  checked={remember}
+                  onChange={() => setRemember(!remember)}
+                />
+                <Form.Check.Label htmlFor="remember">
+                  Remember Me
+                </Form.Check.Label>
+              </Form.Check>
+              <Form.Group className="d-grid">
+                <Button type="submit" variant="dark">
+                  <i className="me-2 fa-solid fa-arrow-right-to-bracket"></i>
+                  Login
+                </Button>
+              </Form.Group>
+            </Form>
+          </Col>
         </Row>
       </Col>
     </>
