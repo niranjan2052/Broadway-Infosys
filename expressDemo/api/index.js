@@ -4,10 +4,13 @@ const routes = require("@/routes");
 const app = express();
 const mongoose = require("mongoose");
 const { config } = require("dotenv");
+const cors = require("cors");
 
 config();
 
 const human = mongoose.model("humans", { name: String, age: Number });
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded());
@@ -25,7 +28,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 400);
   res.send({
     message: err.message || "Problem while processing request",
-    errors: err.errors
+    errors: err.errors,
   });
 });
 
