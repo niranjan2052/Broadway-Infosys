@@ -3,6 +3,8 @@ import { Col, Form, Row, Button } from "react-bootstrap";
 import { FormInput } from "@/components";
 import * as Yup from "yup";
 import { useState } from "react";
+import http from "@/http";
+import { SubmitBtn } from "../../components";
 
 export const Login = () => {
   const [remember, setRemember] = useState(false);
@@ -15,7 +17,13 @@ export const Login = () => {
       email: Yup.string().required().email(),
       password: Yup.string().required(),
     }),
-    onSubmit: (value) => {},
+    onSubmit: (value, { setSubmitting }) => {
+      http
+        .post("/auth/login", value)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
+        .finally(() => setSubmitting(false));
+    },
   });
 
   return (
@@ -62,12 +70,16 @@ export const Login = () => {
                 <Form.Check.Label htmlFor="remember">
                   Remember Me
                 </Form.Check.Label>
+                {remember ? (
+                  <div className="text-success">Stay! Logged In!</div>
+                ) : undefined}
               </Form.Check>
               <Form.Group className="d-grid">
-                <Button type="submit" variant="dark">
-                  <i className="me-2 fa-solid fa-arrow-right-to-bracket"></i>
-                  Login
-                </Button>
+                <SubmitBtn
+                  label="Log In"
+                  icon="fa-arrow-right-to-bracket"
+                  disabled={formik.isSubmitting}
+                />
               </Form.Group>
             </Form>
           </Col>
