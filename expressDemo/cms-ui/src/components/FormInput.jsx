@@ -24,7 +24,11 @@ export const FormInput = ({
         isInvalid={formik.touched[name] && formik.errors[name]}
       />
 
-      {formik.touched[name] && formik.errors[name] && <Form.Control.Feedback type="invalid">Invalid Input!!</Form.Control.Feedback>}
+      {formik.touched[name] && formik.errors[name] && (
+        <Form.Control.Feedback type="invalid">
+          {formik.errors[name]}
+        </Form.Control.Feedback>
+      )}
     </Form.Group>
   );
 };
