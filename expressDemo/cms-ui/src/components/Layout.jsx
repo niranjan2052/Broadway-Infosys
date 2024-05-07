@@ -12,7 +12,7 @@ import http from "@/http";
 import { Loading } from "@/components";
 
 export const Layout = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   useEffect(() => {
