@@ -22,7 +22,7 @@ export const Login = () => {
       http
         .post("/auth/login", value)
         .then(({ data }) => {
-          inStorage("mern", data?.token,remember);
+          inStorage("mern", data?.token, remember);
         })
         .catch(({ response }) => setValidationErrors(formik, response))
         .finally(() => setSubmitting(false));
