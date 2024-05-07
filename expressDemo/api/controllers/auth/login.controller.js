@@ -23,7 +23,7 @@ class LoginController {
           res.send({ token });
         } else {
           return validationError(next, {
-            email: "The provided password is incorrect",
+            password: "The provided password is incorrect",
           });
         }
       } else {
