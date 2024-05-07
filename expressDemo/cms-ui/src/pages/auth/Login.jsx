@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { useState } from "react";
 import http from "@/http";
 import { SubmitBtn } from "../../components";
+import { setValidationErrors, inStorage } from "@/lib";
 
 export const Login = () => {
   const [remember, setRemember] = useState(false);
@@ -20,8 +21,10 @@ export const Login = () => {
     onSubmit: (value, { setSubmitting }) => {
       http
         .post("/auth/login", value)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
+        .then(({ data }) => {
+          inStorage("mern", data?.token);
+        })
+        .catch(({ response }) => setValidationErrors(formik, response))
         .finally(() => setSubmitting(false));
     },
   });
