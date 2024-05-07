@@ -1,14 +1,18 @@
 import { useFormik } from "formik";
 import { Col, Form, Row, Button } from "react-bootstrap";
-import { FormInput } from "@/components";
 import * as Yup from "yup";
 import { useState } from "react";
-import http from "@/http";
-import { SubmitBtn } from "../../components";
+import http from "../../http";
+import { SubmitBtn, FormInput } from "../../components";
 import { setValidationErrors, inStorage } from "@/lib";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "@/store";
 
 export const Login = () => {
   const [remember, setRemember] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -22,7 +26,12 @@ export const Login = () => {
       http
         .post("/auth/login", value)
         .then(({ data }) => {
-          inStorage("mern", data?.token, remember);
+          inStorage("mern", data.token, remember);
+          return http.get("/profile");
+        })
+        .then(({ data }) => {
+          dispatch(setUser(data.name));
+          navigate("/");
         })
         .catch(({ response }) => setValidationErrors(formik, response))
         .finally(() => setSubmitting(false));
