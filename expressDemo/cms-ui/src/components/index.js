@@ -1,4 +1,6 @@
 import { Layout } from "./Layout";
 import { FormInput } from "./FormInput";
 import { SubmitBtn } from "./SubmitBtn";
-export { Layout, FormInput, SubmitBtn };
+import { Loading } from "./Loading";
+
+export { Layout, FormInput, SubmitBtn,Loading };

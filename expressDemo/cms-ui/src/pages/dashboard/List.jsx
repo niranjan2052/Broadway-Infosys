@@ -5,7 +5,7 @@ export const List = () => {
     <Col className="bg-white py-2 my-2 rounded-2 shadow-sm">
       <Row>
         <Col>
-          <h1>Hello</h1>
+          <h1>Welcome</h1>
         </Col>
       </Row>
     </Col>
