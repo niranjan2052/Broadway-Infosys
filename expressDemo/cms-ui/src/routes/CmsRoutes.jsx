@@ -13,6 +13,14 @@ export const CmsRoutes = () => {
             index
             element={<PrivateRoutes element={<Pages.Dashboard.List />} />}
           ></Route>
+          <Route
+            path="/profile/edit"
+            element={<PrivateRoutes element={<Pages.Profile.Edit />} />}
+          ></Route>
+          <Route
+            path="/profile/password"
+            element={<PrivateRoutes element={<Pages.Profile.Password />} />}
+          ></Route>
           <Route path="login" element={<Pages.Auth.Login />}></Route>
           <Route path="*" element={<PageNotFound />}></Route>
         </Route>

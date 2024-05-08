@@ -34,17 +34,24 @@ export const CmsMenu = () => {
                 title={
                   <>
                     <i className="fa-solid fa-user-circle me-2"></i>
-                    {user}
+                    {user.name}
                   </>
                 }
                 align="end"
               >
+                <Link className="dropdown-item" to="/profile/edit">
+                  <i className="fa-regular fa-pen-to-square"></i> Edit Profile
+                </Link>
+                <Link className="dropdown-item" to="/profile/password">
+                  <i className="fa-solid fa-key"></i> Change
+                  Password
+                </Link>
                 <Link
                   className="dropdown-item"
                   to="/logout"
                   onClick={handleLogout}
                 >
-                  <i className="fa-solid fa-arrow-fight-from-bracket"></i>Log
+                  <i className="fa-solid fa-arrow-right-from-bracket"></i> Log
                   Out
                 </Link>
               </NavDropdown>

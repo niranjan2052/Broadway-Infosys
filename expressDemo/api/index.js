@@ -8,7 +8,6 @@ const cors = require("cors");
 
 config();
 
-const human = mongoose.model("humans", { name: String, age: Number });
 
 app.use(cors());
 

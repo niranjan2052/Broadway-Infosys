@@ -4,7 +4,7 @@ export const SubmitBtn = ({
   variant = "dark",
   disabled = false,
   icon = "fa-save",
-  label = "save",
+  label = "Save",
 }) => {
   return (
     <Button type="submit" variant={variant} disabled={disabled}>

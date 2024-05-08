@@ -8,14 +8,16 @@ export const FormInput = ({
   name,
   placeholder,
   required = false,
+  as,
 }) => {
   return (
     <Form.Group className="mb-3">
       <Form.Label htmlFor={name}>{label}</Form.Label>
       <Form.Control
-        type={type}
+        type={!as ? type : undefined}
         name={name}
         id={name}
+        as={as}
         value={type != "password" ? formik.values[name] : undefined}
         required={required}
         onChange={formik.handleChange}

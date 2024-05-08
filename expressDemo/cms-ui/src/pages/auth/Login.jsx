@@ -30,7 +30,7 @@ export const Login = () => {
           return http.get("/profile");
         })
         .then(({ data }) => {
-          dispatch(setUser(data.name));
+          dispatch(setUser(data));
           navigate("/");
         })
         .catch(({ response }) => setValidationErrors(formik, response))

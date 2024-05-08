@@ -22,7 +22,7 @@ export const Layout = () => {
         setLoading(true);
         http
           .get("/profile")
-          .then(({ data }) => dispatch(setUser(data.name)))
+          .then(({ data }) => dispatch(setUser(data)))
           .catch((err) => removeStorage("mern"))
           .finally(() => setLoading(false));
       } else {
