@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { Layout } from "@/components";
 import * as Pages from "../pages";
 import PageNotFound from "../pages/PageNotFound";
@@ -21,6 +21,11 @@ export const CmsRoutes = () => {
             path="/profile/password"
             element={<PrivateRoutes element={<Pages.Profile.Password />} />}
           ></Route>
+          <Route path="/staffs" element={<Outlet />}>
+            <Route index element={<Pages.Staffs.List />} />
+            <Route path="create" element={<Pages.Staffs.Create />} />
+            <Route path="edit/:id" element={<Pages.Staffs.Edit />} />
+          </Route>
           <Route path="login" element={<Pages.Auth.Login />}></Route>
           <Route path="*" element={<PageNotFound />}></Route>
         </Route>
