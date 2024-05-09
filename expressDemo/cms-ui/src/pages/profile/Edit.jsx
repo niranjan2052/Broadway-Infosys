@@ -49,7 +49,9 @@ export const Edit = () => {
               required
               formik={formik}
             />
-            <SubmitBtn/>
+            <Form.Group>
+              <SubmitBtn disabled={formik.isSubmitting} />
+            </Form.Group>
           </Form>
         </Col>
       </Row>
