@@ -33,6 +33,7 @@ export const List = () => {
         <Col xs="auto">
           <Link to="/staffs/create" className="btn btn-dark">
             <i className="fa-solid fa-plus me-2"></i>
+            <span className="ms-1">Add Staff</span>
           </Link>
         </Col>
       </Row>

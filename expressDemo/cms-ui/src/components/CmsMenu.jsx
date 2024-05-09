@@ -24,8 +24,9 @@ export const CmsMenu = () => {
           <Navbar.Collapse>
             <Nav className="me-auto">
               <Nav.Item>
-                <NavLink to="" className="nav-link">
-                  Link
+                <NavLink to="/staffs" className="nav-link">
+                  <i className="fa-solid fa-clipboard-user"></i>
+                  <span className="ms-1">Staffs</span>
                 </NavLink>
               </Nav.Item>
             </Nav>
@@ -43,8 +44,7 @@ export const CmsMenu = () => {
                   <i className="fa-regular fa-pen-to-square"></i> Edit Profile
                 </Link>
                 <Link className="dropdown-item" to="/profile/password">
-                  <i className="fa-solid fa-key"></i> Change
-                  Password
+                  <i className="fa-solid fa-key"></i> Change Password
                 </Link>
                 <Link
                   className="dropdown-item"
