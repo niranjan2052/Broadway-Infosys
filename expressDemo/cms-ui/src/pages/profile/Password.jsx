@@ -1,7 +1,5 @@
 import { useFormik } from "formik";
 import { Col, Row, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "@/store";
 import { setValidationErrors } from "@/lib";
 import * as Yup from "yup";
 import { FormInput, SubmitBtn } from "../../components";
@@ -11,8 +9,6 @@ import http from "@/http";
 YupPassword(Yup);
 
 export const Password = () => {
-  const user = useSelector((state) => state.user.value);
-  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       oldPassword: "",
@@ -70,7 +66,9 @@ export const Password = () => {
               required
               formik={formik}
             />
-            <SubmitBtn />
+            <Form.Group>
+              <SubmitBtn disabled={formik.isSubmitting} />
+            </Form.Group>
           </Form>
         </Col>
       </Row>
