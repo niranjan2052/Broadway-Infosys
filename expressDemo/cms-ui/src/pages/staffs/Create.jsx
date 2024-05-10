@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 YupPassword(Yup);
 
 export const Create = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       name: "",
