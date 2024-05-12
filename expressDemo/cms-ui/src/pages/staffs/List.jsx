@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import { Col, Row, Table } from "react-bootstrap";
+import { Button, Col, Row, Table } from "react-bootstrap";
 import { Loading } from "@/components";
 import http from "@/http";
-import dayjs from "dayjs";
-import localizedFormat from "dayjs/plugin/localizedFormat";
-import { Link } from "react-router-dom";
-
-dayjs.extend(localizedFormat);
+import { Link, useNavigate } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+import { dt } from "@/lib";
 
 export const List = () => {
   const [staffs, setStaffs] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadStaffs();
@@ -23,6 +22,30 @@ export const List = () => {
       .catch(() => {})
       .finally(() => setLoading(false));
   };
+  const deleteStaff = (userId) => {
+    confirmAlert({
+      title: "Delete Staff",
+      message: "Are you sure? You want to delete this Item?",
+      buttons: [
+        {
+          label: "Yes",
+          className: `bg-danger`,
+          onClick: () => {
+            http
+              .delete(`cms/staffs/${userId}`)
+              .then(() => loadStaffs())
+              .catch(() => {})
+              .finally(() => setLoading(false));
+          },
+        },
+        {
+          label: "No",
+          className: "bg-secondary",
+          onClick: () => {},
+        },
+      ],
+    });
+  };
 
   return (
     <Col className="bg-white py-2 my-2 rounded-2 shadow-sm">
@@ -32,8 +55,8 @@ export const List = () => {
         </Col>
         <Col xs="auto">
           <Link to="/staffs/create" className="btn btn-dark">
-            <i className="fa-solid fa-plus me-2"></i>
-            <span className="ms-1">Add Staff</span>
+            <i className="fa-solid fa-plus"></i>
+            <span className="mx-1">Add Staff</span>
           </Link>
         </Col>
       </Row>
@@ -64,9 +87,26 @@ export const List = () => {
                       <td>{staff.phone}</td>
                       <td>{staff.address}</td>
                       <td>{staff.status ? "Active" : "Inactive"}</td>
-                      <td>{dayjs(staff.createdAt).format("lll")}</td>
-                      <td>{dayjs(staff.updatedAt).format("lll")}</td>
-                      <td></td>
+                      <td>{dt(staff.createdAt)}</td>
+                      <td>{dt(staff.updatedAt)}</td>
+                      <td>
+                        <Button
+                          className="btn-primary"
+                          onClick={() => {
+                            navigate(`/staffs/edit/${staff._id}`);
+                          }}
+                        >
+                          <i className="fa-regular fa-pen-to-square me-1"></i>
+                          Edit
+                        </Button>
+                        <Button
+                          className="btn-danger ms-1"
+                          onClick={() => deleteStaff(staff._id)}
+                        >
+                          <i className="fa-solid fa-trash-can me-1"></i>
+                          Delete
+                        </Button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
