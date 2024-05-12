@@ -3,6 +3,7 @@ import { Layout } from "@/components";
 import * as Pages from "../pages";
 import PageNotFound from "../pages/PageNotFound";
 import { PrivateRoutes } from "./PrivateRoutes";
+import { AdminRoutes } from "./AdminRoutes";
 
 export const CmsRoutes = () => {
   return (
@@ -21,7 +22,12 @@ export const CmsRoutes = () => {
             path="/profile/password"
             element={<PrivateRoutes element={<Pages.Profile.Password />} />}
           ></Route>
-          <Route path="/staffs" element={<Outlet />}>
+          <Route
+            path="/staffs"
+            element={
+              <PrivateRoutes element={<AdminRoutes element={<Outlet />} />} />
+            }
+          >
             <Route index element={<Pages.Staffs.List />} />
             <Route path="create" element={<Pages.Staffs.Create />} />
             <Route path="edit/:id" element={<Pages.Staffs.Edit />} />
