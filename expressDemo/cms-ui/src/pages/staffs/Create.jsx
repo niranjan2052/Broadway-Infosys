@@ -7,6 +7,7 @@ import YupPassword from "yup-password";
 import http from "@/http";
 import ReactSwitch from "react-switch";
 import { useNavigate } from "react-router-dom";
+import { DataForm } from "./DataForm";
 
 YupPassword(Yup);
 
@@ -55,63 +56,7 @@ export const Create = () => {
       </Row>
       <Row>
         <Col>
-          <Form onSubmit={formik.handleSubmit}>
-            <FormInput
-              type="text"
-              name="name"
-              label="Name"
-              required
-              formik={formik}
-            />
-            <FormInput
-              type="email"
-              name="email"
-              label="Email"
-              required
-              formik={formik}
-            />
-            <FormInput
-              type="password"
-              name="password"
-              label="Password"
-              required
-              formik={formik}
-            />
-            <FormInput
-              type="password"
-              name="confirmPassword"
-              label="confirmPassword"
-              required
-              formik={formik}
-            />
-            <FormInput
-              type="text"
-              name="phone"
-              label="Phone"
-              required
-              formik={formik}
-            />
-            <FormInput
-              as="textarea"
-              name="address"
-              label="Address"
-              required
-              formik={formik}
-            />
-            <FormLabel>
-              <label htmlFor="status">Status</label>
-              <br />
-              <ReactSwitch
-                checked={formik.values.status}
-                onChange={() => {
-                  formik.setFieldValue("status", !formik.values.status);
-                }}
-              />
-            </FormLabel>
-            <Form.Group>
-              <SubmitBtn disabled={formik.isSubmitting} />
-            </Form.Group>
-          </Form>
+          <DataForm formik={formik} />
         </Col>
       </Row>
     </Col>
