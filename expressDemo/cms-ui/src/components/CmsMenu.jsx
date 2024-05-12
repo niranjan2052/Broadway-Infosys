@@ -23,12 +23,14 @@ export const CmsMenu = () => {
           <Navbar.Toggle />
           <Navbar.Collapse>
             <Nav className="me-auto">
-              <Nav.Item>
-                <NavLink to="/staffs" className="nav-link">
-                  <i className="fa-solid fa-clipboard-user"></i>
-                  <span className="ms-1">Staffs</span>
-                </NavLink>
-              </Nav.Item>
+              {user.role == "Admin" && (
+                <Nav.Item>
+                  <NavLink to="/staffs" className="nav-link">
+                    <i className="fa-solid fa-clipboard-user"></i>
+                    <span className="mx-2">Staffs</span>
+                  </NavLink>
+                </Nav.Item>
+              )}
             </Nav>
             <Nav>
               <NavDropdown
