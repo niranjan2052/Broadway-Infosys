@@ -1,12 +1,11 @@
 import { useFormik } from "formik";
-import { Row, Col, Form, FormLabel, Dropdown } from "react-bootstrap";
-import { FormInput, SubmitBtn, Loading } from "@/components";
-import ReactSwitch from "react-switch";
+import { Row, Col } from "react-bootstrap";
+import { Loading } from "@/components";
 import * as Yup from "yup";
 import http from "@/http";
 import { setValidationErrors } from "@/lib";
 import YupPassword from "yup-password";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { DataForm } from "./DataForm";
 
@@ -15,6 +14,7 @@ YupPassword(Yup);
 export const Edit = () => {
   const params = useParams();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -30,13 +30,10 @@ export const Edit = () => {
       status: Yup.boolean().required(),
     }),
     onSubmit: (values, { setSubmitting }) => {
-      console.log(values);
       http
         .patch(`cms/staffs/${params.id}`, values)
-        .then(({ data }) => {
-          dispatch(setStaff(data));
-        })
-        .catch(({ response }) => setValidationErrors(response))
+        .then(() => navigate("/staffs"))
+        .catch(({ response }) => setValidationErrors(formik, response))
         .finally(setSubmitting(false));
     },
   });
