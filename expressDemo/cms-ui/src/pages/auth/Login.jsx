@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { Col, Form, Row, Button } from "react-bootstrap";
 import * as Yup from "yup";
 import { useState } from "react";
-import http from "../../http";
+import http from "@/http";
 import { SubmitBtn, FormInput } from "../../components";
 import { setValidationErrors, inStorage } from "@/lib";
 import { useDispatch } from "react-redux";
@@ -24,8 +24,8 @@ export const Login = () => {
     }),
     onSubmit: (value, { setSubmitting }) => {
       http
-        .post("/auth/login", value)
-        .then(({ data }) => {
+      .post("/auth/login", value)
+      .then(({ data }) => {
           inStorage("mern", data.token, remember);
           return http.get("/profile");
         })
