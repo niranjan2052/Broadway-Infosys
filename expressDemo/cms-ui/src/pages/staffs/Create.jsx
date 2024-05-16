@@ -1,11 +1,9 @@
 import { useFormik } from "formik";
-import { Col, Row, Form, FormLabel } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { setValidationErrors } from "@/lib";
 import * as Yup from "yup";
-import { FormInput, SubmitBtn } from "../../components";
 import YupPassword from "yup-password";
 import http from "@/http";
-import ReactSwitch from "react-switch";
 import { useNavigate } from "react-router-dom";
 import { DataForm } from "./DataForm";
 
