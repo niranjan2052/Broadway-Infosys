@@ -41,8 +41,6 @@ export const DataTable = ({ data = [], searchable = [], sortable = [] }) => {
         if (isNaN(x) || isNaN(y)) {
           x = a[sortBy];
           y = b[sortBy];
-          console.log(dayjs(x).isValid());
-          console.log(dayjs(y).isValid());
           if (dayjs(x).isValid() && dayjs(y).isValid()) {
             x = Date.parse(x);
             y = Date.parse(y);
