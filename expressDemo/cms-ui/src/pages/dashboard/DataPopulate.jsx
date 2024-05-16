@@ -11,8 +11,8 @@ export const DataPopulate = () => {
     for (let i = 1; i <= 50; i++) {
       setNum(i);
       const data = {
-        name: `Person ${i}`,
-        email: `Person.${i}@email.com`,
+        name: `Customer ${i}`,
+        email: `Customer.${i}@email.com`,
         password: "Password@123",
         confirmPassword: "Password@123",
         phone: "987654321",
@@ -20,7 +20,7 @@ export const DataPopulate = () => {
         status: i % 2 == 0 ? true : false,
       };
       try {
-        await http.post("cms/staffs", data);
+        await http.post("cms/customer", data);
       } catch (e) {
         
       }
