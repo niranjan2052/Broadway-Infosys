@@ -5,3 +5,8 @@
 .sortable:hover {
   opacity: 0.9;
 }
+
+.img-sm{
+  width: auto;
+  max-height: 50px;
+}
