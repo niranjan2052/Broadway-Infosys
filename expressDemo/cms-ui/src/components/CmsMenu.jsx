@@ -40,6 +40,12 @@ export const CmsMenu = () => {
                 </NavLink>
               </Nav.Item>
               <Nav.Item>
+                <NavLink to="/products" className="nav-link">
+                  <i class="fa-brands fa-product-hunt"></i>
+                  <span className="mx-2">Products</span>
+                </NavLink>
+              </Nav.Item>
+              <Nav.Item>
                 <NavLink to="/brands" className="nav-link">
                   <i className="fa-brands fa-bandcamp"></i>
                   <span className="mx-2">Brands</span>
