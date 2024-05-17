@@ -49,9 +49,36 @@ export const CmsRoutes = () => {
             path="/customers"
             element={<PrivateRoutes element={<Outlet />} />}
           >
-            <Route index element={<Pages.Customer.List />} />
-            <Route path="create" element={<Pages.Customer.Create />} />
-            <Route path="edit/:id" element={<Pages.Customer.Edit />} />
+            <Route index element={<Pages.Customers.List />} />
+            <Route path="create" element={<Pages.Customers.Create />} />
+            <Route path="edit/:id" element={<Pages.Customers.Edit />} />
+          </Route>
+          //Links for Products
+          <Route
+            path="/products"
+            element={<PrivateRoutes element={<Outlet />} />}
+          >
+            <Route index element={<Pages.Products.List />} />
+            <Route path="create" element={<Pages.Products.Create />} />
+            <Route path="edit/:id" element={<Pages.Products.Edit />} />
+          </Route>
+          //Links for Brand
+          <Route
+            path="/brands"
+            element={<PrivateRoutes element={<Outlet />} />}
+          >
+            <Route index element={<Pages.Brands.List />} />
+            <Route path="create" element={<Pages.Brands.Create />} />
+            <Route path="edit/:id" element={<Pages.Brands.Edit />} />
+          </Route>
+          //Links for Categories
+          <Route
+            path="/categories"
+            element={<PrivateRoutes element={<Outlet />} />}
+          >
+            <Route index element={<Pages.Categories.List />} />
+            <Route path="create" element={<Pages.Categories.Create />} />
+            <Route path="edit/:id" element={<Pages.Categories.Edit />} />
           </Route>
           //Links for login Page
           <Route path="login" element={<Pages.Auth.Login />}></Route>
