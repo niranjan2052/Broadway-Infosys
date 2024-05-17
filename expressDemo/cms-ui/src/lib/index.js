@@ -29,3 +29,6 @@ export const removeStorage = (key) => {
   localStorage.removeItem(key);
   sessionStorage.removeItem(key);
 };
+
+export const imgUrl = (filename) =>
+  `${import.meta.env.VITE_API_URL}/image/${filename}`;
