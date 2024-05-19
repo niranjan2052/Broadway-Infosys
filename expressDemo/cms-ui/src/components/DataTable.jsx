@@ -31,7 +31,7 @@ export const DataTable = ({ data = [], searchable = [], sortable = [] }) => {
     setCurrent(1);
     setSortBy("");
     setDirection("asc");
-  }, [term]);
+  }, [term, data]);
   //use Effect for sorting
   useEffect(() => {
     if (sortBy.length > 0) {
@@ -149,7 +149,7 @@ export const DataTable = ({ data = [], searchable = [], sortable = [] }) => {
           <Table size="sm" striped hover bordered>
             <thead className="table-dark">
               <tr>
-                {Object.keys(data[0]).map((k, i) => (
+                {Object.keys(filtered[0]).map((k, i) => (
                   <th
                     key={i}
                     className={sortable.includes(k) && "sortable"}
