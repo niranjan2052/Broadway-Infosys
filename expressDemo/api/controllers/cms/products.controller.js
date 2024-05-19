@@ -182,7 +182,7 @@ class ProductController {
         let images = products.images.filter(
           (image) => image != req.params.filename
         );
-        await Product.findByIdAndDelete(req.params.id, { images });
+        await Product.findByIdAndUpdate(req.params.id, { images });
         res.send({
           message: "Product image deleted Successfully",
           status: 204,

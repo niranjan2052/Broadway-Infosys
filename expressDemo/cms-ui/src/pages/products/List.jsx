@@ -77,6 +77,7 @@ export const List = () => {
                 "Brand",
                 "Price",
                 "Dis. Price",
+                "Featured",
                 "Status",
                 "Created At",
                 "Updated At",
@@ -87,6 +88,7 @@ export const List = () => {
                 "Brand",
                 "Price",
                 "Dis. Price",
+                "Featured",
                 "Status",
                 "Created At",
                 "Updated At",
@@ -101,6 +103,7 @@ export const List = () => {
                   Brand: product.brand.name,
                   "Dis. Price": product.discounted_price,
                   Status: product.status ? "Active" : "Inactive",
+                  Featured: product.featured ? "Yes" : "No",
                   "Created At": dt(product.createdAt),
                   "Updated At": dt(product.updatedAt),
                   Actions: (
