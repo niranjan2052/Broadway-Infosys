@@ -6,7 +6,7 @@ const OrderDetail = model(
   new Schema(
     {
       orderId: { type: Schema.Types.ObjectId, required: true, ref: "Order" },
-      productId: { type: String, required: true },
+      productId: { type: Schema.Types.ObjectId, required: true },
       price: { type: Number, required: true },
       qty: { type: Number, required: true },
       total: { type: Number, require: true },
