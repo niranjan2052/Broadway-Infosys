@@ -27,34 +27,46 @@ export const CmsMenu = () => {
                 <>
                   <Nav.Item>
                     <NavLink to="/staffs" className="nav-link">
-                      <i className="fa-solid fa-clipboard-user"></i>
-                      <span className="mx-2">Staffs</span>
+                      <i className="fa-solid fa-clipboard-user me-2"></i>
+                      Staffs
                     </NavLink>
                   </Nav.Item>
                 </>
               )}
               <Nav.Item>
                 <NavLink to="/customers" className="nav-link">
-                  <i className="fa-solid fa-people-group"></i>
-                  <span className="mx-2">Customers</span>
+                  <i className="fa-solid fa-people-group me-2"></i>
+                  Customers
                 </NavLink>
               </Nav.Item>
               <Nav.Item>
                 <NavLink to="/products" className="nav-link">
-                  <i className="fa-brands fa-product-hunt"></i>
-                  <span className="mx-2">Products</span>
+                  <i className="fa-brands fa-product-hunt me-2"></i>
+                  Products
+                </NavLink>
+              </Nav.Item>
+              <Nav.Item>
+                <NavLink to="/reviews" className="nav-link">
+                  <i className="fa-solid fa-star-half-stroke me-2"></i>
+                  Reviews
+                </NavLink>
+              </Nav.Item>
+              <Nav.Item>
+                <NavLink to="/orders" className="nav-link">
+                  <i className="fa-solid fa-shopping-bag me-2"></i>
+                  Orders
                 </NavLink>
               </Nav.Item>
               <Nav.Item>
                 <NavLink to="/brands" className="nav-link">
-                  <i className="fa-brands fa-bandcamp"></i>
-                  <span className="mx-2">Brands</span>
+                  <i className="fa-brands fa-bandcamp me-2"></i>
+                  Brands
                 </NavLink>
               </Nav.Item>
               <Nav.Item>
                 <NavLink to="/categories" className="nav-link">
-                  <i className="fa-solid fa-layer-group"></i>
-                  <span className="mx-2">Categories</span>
+                  <i className="fa-solid fa-layer-group me-2"></i>
+                  Categories
                 </NavLink>
               </Nav.Item>
             </Nav>
