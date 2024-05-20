@@ -40,18 +40,18 @@ export const Edit = () => {
       brandId: Yup.string().required(),
       status: Yup.boolean().required(),
       featured: Yup.boolean().required(),
-      images: Yup.array().test(
-        "fileType",
-        "All files must be a valid image",
-        (item) => {
-          for (let img of item) {
-            if (!img.type.startsWith("image/")) {
-              return false;
+      images: Yup.array()
+        .nullable()
+        .test("fileType", "All files must be a valid image", (item) => {
+          if (item) {
+            for (let img of item) {
+              if (!img.type.startsWith("image/")) {
+                return false;
+              }
             }
           }
           return true;
-        }
-      ),
+        }),
     }),
     onSubmit: (values, { setSubmitting }) => {
       let fd = new FormData();
@@ -64,7 +64,6 @@ export const Edit = () => {
           fd.append(k, values[k]);
         }
       }
-      console.log(values);
       http
         .patch(`/cms/products/${params.id}`, fd, {
           headers: {
