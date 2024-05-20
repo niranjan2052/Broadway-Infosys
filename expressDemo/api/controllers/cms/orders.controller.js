@@ -1,7 +1,8 @@
 const { errorHandle, validationError, notFoundError } = require("../../lib");
 const { Order, OrderDetail } = require("../../models");
+const { Types } = require("mongoose");
 class OrderController {
-  index = async (req, res, next) => {
+  index = async (_req, res, next) => {
     try {
       let orders = await Order.aggregate().lookup({
         from: "users",
@@ -50,9 +51,9 @@ class OrderController {
   };
   destroy = async (req, res, next) => {
     try {
-      let order = await Order.findById(req.params.id);
-      if (order) {
-        const details = await OrderDetail.deleteMany({orderId:order._id});
+      let orders = await Order.findById(req.params.id);
+      if (orders) {
+        await OrderDetail.deleteMany({ orderId: orders._id });
         await Order.findByIdAndDelete(req.params.id);
         res.send({
           message: "Order deleted Successfully",

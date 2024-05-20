@@ -83,10 +83,9 @@ class ProfileController {
             foreignField: "_id",
             as: "product",
           });
-
-          for(let j in orders[i].details){
-            orders[i].details[j].product = orders[i].details[j].product[0];
-          }
+        for (let j in orders[i].details) {
+          orders[i].details[j].product = orders[i].details[j].product[0];
+        }
       }
       res.send(orders);
     } catch (error) {

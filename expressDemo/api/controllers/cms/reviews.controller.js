@@ -2,10 +2,9 @@ const { errorHandle, validationError, notFoundError } = require("../../lib");
 const { Review } = require("../../models");
 const { Types } = require("mongoose");
 class ReviewController {
-  index = async (req, res, next) => {
+  index = async (_req, res, next) => {
     try {
       let reviews = await Review.aggregate()
-        .match({ userId: new Types.ObjectId(req.uid) })
         .lookup({
           from: "products",
           localField: "productId",
@@ -28,6 +27,7 @@ class ReviewController {
       return errorHandle(error, next);
     }
   };
+
 
   destroy = async (req, res, next) => {
     try {

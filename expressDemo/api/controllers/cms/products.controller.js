@@ -1,9 +1,9 @@
 const { errorHandle, validationError, notFoundError } = require("../../lib");
-const { Product, Catagory } = require("../../models");
+const { Product } = require("../../models");
 const { unlinkSync } = require("node:fs");
 const mongoose = require("mongoose");
 class ProductController {
-  index = async (req, res, next) => {
+  index = async (_req, res, next) => {
     try {
       // let products = await Product.aggregate([{
       //   {$lookup: {from:'catagory',localField:"catagoryId",foreignField:"_id", as:"catagory"}},
@@ -160,7 +160,7 @@ class ProductController {
       let products = await Product.findById(req.params.id);
       if (products) {
         for (let image of products.images) {
-          unlinkSync(`./uploads/${image}`);
+          unlinkSync(`./uploads/${image}`); // To delete file
         }
         await Product.findByIdAndDelete(req.params.id);
         res.send({
@@ -178,11 +178,12 @@ class ProductController {
     try {
       let products = await Product.findById(req.params.id);
       if (products) {
-        unlinkSync(`./uploads/${req.params.filename}`);
+        unlinkSync(`./uploads/${req.params.filename}`); //to unlinkSync is to delete file from the folder
         let images = products.images.filter(
+          // To Filter out the image name that has been deleted
           (image) => image != req.params.filename
         );
-        await Product.findByIdAndUpdate(req.params.id, { images });
+        await Product.findByIdAndUpdate(req.params.id, { images }); // Here we are updating Product with new info
         res.send({
           message: "Product image deleted Successfully",
           status: 204,
