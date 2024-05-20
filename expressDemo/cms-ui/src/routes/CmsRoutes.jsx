@@ -80,6 +80,16 @@ export const CmsRoutes = () => {
             <Route path="create" element={<Pages.Categories.Create />} />
             <Route path="edit/:id" element={<Pages.Categories.Edit />} />
           </Route>
+          //Links for Reviews
+          <Route
+            path="/reviews"
+            element={<PrivateRoutes element={<Pages.Reviews.List />} />}
+          ></Route>
+          //Links for Orders
+          <Route
+            path="/orders"
+            element={<PrivateRoutes element={<Pages.Orders.List />} />}
+          ></Route>
           //Links for login Page
           <Route path="login" element={<Pages.Auth.Login />}></Route>
           <Route path="*" element={<PageNotFound />}></Route>

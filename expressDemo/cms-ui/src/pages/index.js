@@ -6,5 +6,18 @@ import * as Customers from "./customers";
 import * as Brands from "./brands";
 import * as Products from "./products";
 import * as Categories from "./categories";
+import * as Reviews from "./reviews";
+import * as Orders from "./orders";
 
-export { Dashboard, Auth, Profile, Staffs, Products, Customers, Brands, Categories };
+export {
+  Dashboard,
+  Auth,
+  Profile,
+  Staffs,
+  Products,
+  Customers,
+  Brands,
+  Categories,
+  Reviews,
+  Orders,
+};
