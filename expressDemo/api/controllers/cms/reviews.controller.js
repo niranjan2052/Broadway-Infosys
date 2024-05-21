@@ -1,4 +1,4 @@
-const { errorHandle, validationError, notFoundError } = require("../../lib");
+const { errorHandle, notFoundError } = require("../../lib");
 const { Review } = require("../../models");
 const { Types } = require("mongoose");
 class ReviewController {

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Loading, DataTable } from "@/components";
 import http from "@/http";
-import { Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import { dt } from "@/lib";
 
