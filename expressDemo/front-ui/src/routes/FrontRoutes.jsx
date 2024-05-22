@@ -10,6 +10,18 @@ export const FrontRoutes = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Pages.Front.Home />}></Route>
+          <Route
+            path="categories/:id"
+            element={<Pages.Front.Category />}
+          ></Route>
+          <Route
+            path="brands/:id"
+            element={<Pages.Front.Brand />}
+          ></Route>
+          <Route
+            path="search"
+            element={<Pages.Front.Search />}
+          ></Route>
         </Route>
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
