@@ -1,8 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./Layout.css";
-import { Outlet } from "react-router-dom";
-import { Container, Row } from "react-bootstrap";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fromStorage, removeStorage } from "../lib";
@@ -11,9 +11,26 @@ import http from "@/http";
 import { Loading } from "@/components";
 
 export const Layout = () => {
+  const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [term, setTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setLoading(true);
+    Promise.all([http.get(`/catagories`), http.get(`/brands`)])
+      .then(([{ data: catList }, { data: brandList }]) => {
+        setCategories(catList);
+        setBrands(brandList);
+      })
+      .catch(() => {})
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
   useEffect(() => {
     if (!user) {
       const token = fromStorage("frontToken");
@@ -31,6 +48,10 @@ export const Layout = () => {
       setLoading(false);
     }
   }, [user]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/search?term=${term}`);
+  };
   return (
     <div className="container-fluid">
       <div className="row min-vh-100">
@@ -73,20 +94,23 @@ export const Layout = () => {
               <div className="row">
                 <div className="col-lg-auto">
                   <div className="site-logo text-center text-lg-left">
-                    <a href="index.html">E-Commerce</a>
+                    <Link to="/">MERN-Commerce</Link>
                   </div>
                 </div>
                 <div className="col-lg-5 mx-auto mt-4 mt-lg-0">
-                  <form action="#">
+                  <form onSubmit={handleSubmit}>
                     <div className="form-group">
                       <div className="input-group">
                         <input
                           type="search"
                           className="form-control border-dark"
                           placeholder="Search..."
+                          onChange={({ target }) => {
+                            setTerm(target.value);
+                          }}
                           required
                         />
-                        <button className="btn btn-outline-dark">
+                        <button type="submit" className="btn btn-outline-dark">
                           <i className="fas fa-search"></i>
                         </button>
                       </div>
@@ -122,103 +146,33 @@ export const Layout = () => {
                   <div className="collapse navbar-collapse" id="mainNav">
                     <ul className="navbar-nav mx-auto mt-2 mt-lg-0">
                       <li className="nav-item active">
-                        <a className="nav-link" href="index.html">
-                          Home <span className="sr-only">(current)</span>
-                        </a>
+                        <Link className="nav-link" to="/">
+                          Home
+                          <span className="sr-only">(current)</span>
+                        </Link>
                       </li>
-                      <li className="nav-item dropdown">
-                        <a
-                          className="nav-link dropdown-toggle"
-                          href="#"
-                          id="electronics"
-                          data-bs-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          Electronics
-                        </a>
-                        <div
-                          className="dropdown-menu"
-                          aria-labelledby="electronics"
-                        >
-                          <a className="dropdown-item" href="category.html">
-                            Computers
-                          </a>
-                          <a className="dropdown-item" href="category.html">
-                            Mobile Phones
-                          </a>
-                          <a className="dropdown-item" href="category.html">
-                            Television Sets
-                          </a>
-                          <a className="dropdown-item" href="category.html">
-                            DSLR Cameras
-                          </a>
-                          <a className="dropdown-item" href="category.html">
-                            Projectors
-                          </a>
-                        </div>
-                      </li>
-                      <li className="nav-item dropdown">
-                        <a
-                          className="nav-link dropdown-toggle"
-                          href="#"
-                          id="fashion"
-                          data-bs-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          Fashion
-                        </a>
-                        <div
-                          className="dropdown-menu"
-                          aria-labelledby="fashion"
-                        >
-                          <a className="dropdown-item" href="category.html">
-                            Men's
-                          </a>
-                          <a className="dropdown-item" href="category.html">
-                            Women's
-                          </a>
-                          <a className="dropdown-item" href="category.html">
-                            Children's
-                          </a>
-                          <a className="dropdown-item" href="category.html">
-                            Accessories
-                          </a>
-                          <a className="dropdown-item" href="category.html">
-                            Footwear
-                          </a>
-                        </div>
-                      </li>
-                      <li className="nav-item dropdown">
-                        <a
-                          className="nav-link dropdown-toggle"
-                          href="#"
-                          id="books"
-                          data-bs-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          Books
-                        </a>
-                        <div className="dropdown-menu" aria-labelledby="books">
-                          <a className="dropdown-item" href="category.html">
-                            Adventure
-                          </a>
-                          <a className="dropdown-item" href="category.html">
-                            Horror
-                          </a>
-                          <a className="dropdown-item" href="category.html">
-                            Romantic
-                          </a>
-                          <a className="dropdown-item" href="category.html">
-                            Children's
-                          </a>
-                          <a className="dropdown-item" href="category.html">
-                            Non-Fiction
-                          </a>
-                        </div>
-                      </li>
+                      <NavDropdown title="Categories">
+                        {categories.map((category) => (
+                          <Link
+                            to={`/categories/${category._id}`}
+                            className="dropdown-item"
+                            key={category._id}
+                          >
+                            {category.name}
+                          </Link>
+                        ))}
+                      </NavDropdown>
+                      <NavDropdown title="Brands">
+                        {brands.map((brand) => (
+                          <Link
+                            to={`/brands/${brand._id}`}
+                            className="dropdown-item"
+                            key={brand._id}
+                          >
+                            {brand.name}
+                          </Link>
+                        ))}
+                      </NavDropdown>
                     </ul>
                   </div>
                 </nav>
