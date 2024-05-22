@@ -103,7 +103,7 @@ class ProductController {
             brand: products[i].brand[0],
           });
         }
-        res.send(newList);
+        res.send(...newList);
       } else {
         return notFoundError("Product", next);
       }
