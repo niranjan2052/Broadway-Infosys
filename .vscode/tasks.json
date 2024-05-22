@@ -32,6 +32,22 @@
       "problemMatcher": [],
       "label": "cms-ui:prod",
       "detail": "Run production on vite server"
+    },
+    {
+      "type": "npm",
+      "script": "dev",
+      "path": "expressDemo/front-ui",
+      "problemMatcher": [],
+      "label": "front-ui:dev",
+      "detail": "Run development on vite server"
+    },
+    {
+      "type": "npm",
+      "script": "prod",
+      "path": "expressDemo/front-ui",
+      "problemMatcher": [],
+      "label": "front-ui:prod",
+      "detail": "Run production on vite server"
     }
   ]
 }
