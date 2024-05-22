@@ -3,7 +3,7 @@ const { errorHandle, notFoundError } = require("../../lib");
 const { Types } = require("mongoose");
 
 class ProductController {
-  featured = async (req, res, next) => {
+  featured = async (_req, res, next) => {
     try {
       const products = await Product.find({
         status: true,
@@ -18,7 +18,7 @@ class ProductController {
       return errorHandle(error, next);
     }
   };
-  latest = async (req, res, next) => {
+  latest = async (_req, res, next) => {
     try {
       const products = await Product.find({
         status: true,
@@ -35,7 +35,7 @@ class ProductController {
       return errorHandle(error, next);
     }
   };
-  top = async (req, res, next) => {
+  top = async (_req, res, next) => {
     try {
       const featured = await Product.aggregate()
         .match({ status: true })
