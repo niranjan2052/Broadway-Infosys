@@ -7,7 +7,7 @@ const {
   OrderDetail,
 } = require("../../models");
 class MiscController {
-  catagories = async (req, res, next) => {
+  catagories = async (_req, res, next) => {
     try {
       const catagories = await Catagory.find({ status: true });
       res.send(catagories);
@@ -17,7 +17,7 @@ class MiscController {
   };
   catagoryById = async (req, res, next) => {
     try {
-      const catagory = await Catagory.find({
+      const catagory = await Catagory.findOne({
         status: true,
         _id: req.params.id,
       });
@@ -37,7 +37,7 @@ class MiscController {
       return errorHandle(error, next);
     }
   };
-  brands = async (req, res, next) => {
+  brands = async (_req, res, next) => {
     try {
       const brands = await Brand.find({ status: true });
       res.send(brands);
