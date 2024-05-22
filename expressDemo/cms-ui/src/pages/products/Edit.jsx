@@ -98,17 +98,17 @@ export const Edit = () => {
       .get(`/cms/products/${params.id}`)
       .then(({ data }) => {
         formik.setValues({
-          name: data[0].name,
-          summary: data[0].summary,
-          description: data[0].description,
-          price: data[0].price,
-          discounted_price: data[0].discounted_price,
-          catagoryId: data[0].catagoryId,
-          brandId: data[0].brandId,
-          status: data[0].status,
-          featured: data[0].featured,
+          name: data.name,
+          summary: data.summary,
+          description: data.description,
+          price: data.price,
+          discounted_price: data.discounted_price,
+          catagoryId: data.catagoryId,
+          brandId: data.brandId,
+          status: data.status,
+          featured: data.featured,
         });
-        setImages(data[0].images);
+        setImages(data.images);
       })
       .catch(() => {})
       .finally(() => setLoading(false));
