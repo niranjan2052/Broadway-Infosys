@@ -1,22 +1,33 @@
+import { imgUrl } from "@/lib";
+
 export const ProductCard = ({ product, latest = false }) => {
   return (
     <div className="col my-3">
       <div className="col-12 bg-white text-center h-100 product-item">
+        {latest && <span className="new">New</span>}
         <div className="row h-100">
           <div className="col-12 p-0 mb-3">
             <a href="product.html">
-              <img src="images/image-1.jpg" className="img-fluid" />
+              <img src={imgUrl(product.images[0])} className="img-fluid" />
             </a>
           </div>
           <div className="col-12 mb-3">
             <a href="product.html" className="product-name">
-              Sony Alpha DSLR Camera
+              {product.name}
             </a>
           </div>
           <div className="col-12 mb-3">
-            <span className="product-price-old">$500</span>
-            <br />
-            <span className="product-price">$500</span>
+            {product.discounted_price > 0 ? (
+              <>
+                <span className="product-price-old">Rs. {product.price}</span>
+                <br />
+                <span className="product-price">
+                  Rs. {product.discounted_price}
+                </span>
+              </>
+            ) : (
+              <span className="product-price">Rs. {product.price}</span>
+            )}
           </div>
           <div className="col-12 mb-3 align-self-end">
             <button className="btn btn-outline-dark" type="button">
