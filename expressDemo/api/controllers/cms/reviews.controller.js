@@ -1,6 +1,5 @@
 const { errorHandle, notFoundError } = require("../../lib");
 const { Review } = require("../../models");
-const { Types } = require("mongoose");
 class ReviewController {
   index = async (_req, res, next) => {
     try {
