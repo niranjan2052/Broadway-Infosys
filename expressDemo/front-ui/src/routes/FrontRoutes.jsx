@@ -22,6 +22,14 @@ export const FrontRoutes = () => {
             path="search"
             element={<Pages.Front.Search />}
           ></Route>
+          <Route
+            path="product/:id"
+            element={<Pages.Front.Product />}
+          ></Route>
+          <Route
+            path="register"
+            element={<Pages.Auth.Register />}
+          ></Route>
         </Route>
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
