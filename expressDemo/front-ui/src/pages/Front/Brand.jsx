@@ -93,7 +93,7 @@ export const Brand = () => {
               <Row>
                 <Col className="text-muted fst-italic">
                   Showing {offset + 1} to{" "}
-                  {current == pages ? filtered.length : current * perPage} in
+                  {current == pages ? products.length : current * perPage} in
                   page
                   {" " + current} of {pages}
                 </Col>
