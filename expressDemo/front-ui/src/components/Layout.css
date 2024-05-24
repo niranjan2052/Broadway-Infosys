@@ -228,6 +228,7 @@ a.product-name:focus {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+  height: 450px;
 }
 
 .img-large:hover {
@@ -240,6 +241,7 @@ a.product-name:focus {
   background-size: cover;
   background-repeat: no-repeat;
   cursor: pointer;
+  height: 100px;
 }
 
 .detail-price {
