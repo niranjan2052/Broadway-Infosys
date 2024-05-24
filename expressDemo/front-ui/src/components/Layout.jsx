@@ -74,18 +74,34 @@ export const Layout = () => {
                   </ul>
                 </div>
                 <div className="col-auto">
-                  <ul className="top-nav">
-                    <li>
-                      <a href="register.html">
-                        <i className="fas fa-user-edit me-2"></i>Register
-                      </a>
-                    </li>
-                    <li>
-                      <a href="login.html">
-                        <i className="fas fa-sign-in-alt me-2"></i>Login
-                      </a>
-                    </li>
-                  </ul>
+                  {user ? (
+                    <ul className="top-nav">
+                      <li>
+                        <Link to="/register">
+                          <i className="fas fa-user-edit me-2"></i>
+                          {user.name}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/logout">
+                          <i className="fas fa-sign-in-alt me-2"></i>Log Out
+                        </Link>
+                      </li>
+                    </ul>
+                  ) : (
+                    <ul className="top-nav">
+                      <li>
+                        <Link to="/register">
+                          <i className="fas fa-user-edit me-2"></i>Register
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/login">
+                          <i className="fas fa-sign-in-alt me-2"></i>Login
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
                 </div>
               </div>
             </div>
