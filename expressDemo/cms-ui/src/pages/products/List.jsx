@@ -101,6 +101,7 @@ export const List = () => {
                   ),
                   Category: product.catagory.name,
                   Brand: product.brand.name,
+                  Price: product.price,
                   "Dis. Price": product.discounted_price,
                   Status: product.status ? "Active" : "Inactive",
                   Featured: product.featured ? "Yes" : "No",
