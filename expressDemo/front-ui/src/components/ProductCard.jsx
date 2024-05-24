@@ -1,4 +1,5 @@
 import { imgUrl } from "@/lib";
+import { Link } from "react-router-dom";
 
 export const ProductCard = ({ product, latest = false }) => {
   return (
@@ -7,14 +8,14 @@ export const ProductCard = ({ product, latest = false }) => {
         {latest && <span className="new">New</span>}
         <div className="row h-100">
           <div className="col-12 p-0 mb-3">
-            <a href="product.html">
+            <Link to={`/product/${product._id}`}>
               <img src={imgUrl(product.images[0])} className="img-fluid" />
-            </a>
+            </Link>
           </div>
           <div className="col-12 mb-3">
-            <a href="product.html" className="product-name">
+            <Link to={`/product/${product._id}`} className="product-name">
               {product.name}
-            </a>
+            </Link>
           </div>
           <div className="col-12 mb-3">
             {product.discounted_price > 0 ? (
