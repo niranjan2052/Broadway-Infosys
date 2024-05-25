@@ -23,6 +23,7 @@ export const FormInput = ({
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         placeholder={placeholder}
+        autoComplete="on"
         isInvalid={formik.touched[name] && formik.errors[name]}
       />
 

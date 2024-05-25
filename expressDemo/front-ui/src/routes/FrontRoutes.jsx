@@ -30,6 +30,10 @@ export const FrontRoutes = () => {
             path="register"
             element={<Pages.Auth.Register />}
           ></Route>
+          <Route
+            path="login"
+            element={<Pages.Auth.Login />}
+          ></Route>
         </Route>
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>

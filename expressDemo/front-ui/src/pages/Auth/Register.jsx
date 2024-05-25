@@ -45,7 +45,6 @@ export const Register = () => {
     },
   });
 
-  console.log(formik);
   return (
     <div className="col-12">
       <div className="row">
