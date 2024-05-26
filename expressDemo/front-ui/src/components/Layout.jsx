@@ -10,6 +10,7 @@ import { setUser } from "@/store";
 import http from "@/http";
 import { Loading } from "@/components";
 import { clearUser } from "@/store";
+import { toast } from "react-toastify";
 
 export const Layout = () => {
   const [categories, setCategories] = useState([]);
@@ -19,9 +20,11 @@ export const Layout = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
+  
   const handleLogout = () => {
     removeStorage("frontToken");
     dispatch(clearUser());
+    toast.info("You have logged Out!");
   };
 
   useEffect(() => {
@@ -93,7 +96,7 @@ export const Layout = () => {
                             handleLogout();
                           }}
                         >
-                          <i className="fas fa-sign-in-alt me-2"></i>Log Out
+                          <i className="fas fa-sign-out-alt me-2"></i>Log Out
                         </Link>
                       </li>
                     </ul>

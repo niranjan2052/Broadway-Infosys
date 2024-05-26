@@ -7,6 +7,7 @@ export const FormInput = ({
   type = "text",
   name,
   placeholder,
+  autoComplete="off",
   required = false,
   as,
 }) => {
@@ -23,7 +24,7 @@ export const FormInput = ({
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         placeholder={placeholder}
-        autoComplete="on"
+        autoComplete={autoComplete}
         isInvalid={formik.touched[name] && formik.errors[name]}
       />
 

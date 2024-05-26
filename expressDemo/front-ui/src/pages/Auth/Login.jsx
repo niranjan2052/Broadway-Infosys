@@ -8,6 +8,7 @@ import { Form } from "react-bootstrap";
 import { FormInput, SubmitBtn } from "@/components";
 import http from "@/http";
 import { setUser } from "@/store";
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const [remember, setRemember] = useState(false);
@@ -34,7 +35,10 @@ export const Login = () => {
           navigate("/");
         })
         .catch(({ response }) => setValidationErrors(formik, response))
-        .finally(() => setSubmitting(false));
+        .finally(() => {
+          toast.success("You are Logged In.");
+          setSubmitting(false);
+        });
     },
   });
   return (

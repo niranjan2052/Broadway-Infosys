@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import { Row, Col } from "react-bootstrap";
-import { Loading } from "@/components";
 import * as Yup from "yup";
 import http from "@/http";
 import { setValidationErrors } from "@/lib";
