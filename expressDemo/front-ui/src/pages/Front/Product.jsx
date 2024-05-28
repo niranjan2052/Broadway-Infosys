@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Loading, ProductSection } from "@/components";
+import { Loading, ProductSection, AddToCart } from "@/components";
 import http from "@/http";
 import { imgUrl } from "@/lib";
 import dayjs from "dayjs";
@@ -17,6 +17,7 @@ export const Product = () => {
   const [loading, setLoading] = useState(false);
   const [review, setReview] = useState({ comment: "", rating: 1 });
   const [rating, setRating] = useState(0);
+  const [qty, setQty] = useState(1);
   const [stars, setStars] = useState({});
   const params = useParams();
 
@@ -159,16 +160,17 @@ export const Product = () => {
                           type="number"
                           id="qty"
                           min="1"
-                          defaultValue="1"
+                          value={qty}
                           className="form-control"
                           required
+                          onChange={({ target }) =>
+                            setQty(parseInt(target.value))
+                          }
                         />
                       </div>
                     </div>
                     <div className="col-12 mt-3">
-                      <button className="btn btn-outline-dark" type="button">
-                        <i className="fas fa-cart-plus me-2"></i>Add to cart
-                      </button>
+                      <AddToCart product={product} qty={qty} />
                     </div>
                     <div className="col-12 mt-3">
                       <button
