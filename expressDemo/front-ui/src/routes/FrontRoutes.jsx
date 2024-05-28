@@ -34,6 +34,10 @@ export const FrontRoutes = () => {
             path="login"
             element={<Pages.Auth.Login />}
           ></Route>
+          <Route
+            path="cart"
+            element={<PrivateRoutes element={<Pages.Front.Cart />}/>}
+          ></Route>
         </Route>
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
