@@ -1,5 +1,6 @@
 import { imgUrl } from "@/lib";
 import { Link } from "react-router-dom";
+import { AddToCart } from "./AddToCart";
 
 export const ProductCard = ({ product, latest = false }) => {
   return (
@@ -31,9 +32,7 @@ export const ProductCard = ({ product, latest = false }) => {
             )}
           </div>
           <div className="col-12 mb-3 align-self-end">
-            <button className="btn btn-outline-dark" type="button">
-              <i className="fas fa-cart-plus me-2"></i>Add to cart
-            </button>
+            <AddToCart product={product} />
           </div>
         </div>
       </div>

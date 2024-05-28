@@ -17,10 +17,13 @@ export const Layout = () => {
   const [brands, setBrands] = useState([]);
   const [term, setTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalQty, setTotalQty] = useState(0);
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
+  const cart = useSelector((state) => state.cart.value);
   const dispatch = useDispatch();
-  
+
   const handleLogout = () => {
     removeStorage("frontToken");
     dispatch(clearUser());
@@ -56,6 +59,22 @@ export const Layout = () => {
       setLoading(false);
     }
   }, [user]);
+
+  useEffect(() => {
+    let qt = 0,
+      tp = 0;
+    if (Object.keys(cart).length > 0) {
+      for (let k in cart) {
+        qt += cart[k].qty;
+        tp +=
+          (cart[k].product?.discounted_price > 0
+            ? cart[k].product?.discounted_price
+            : cart[k].product?.price)*cart[k].qty;
+      }
+    }
+    setTotalQty(qt);
+    setTotalPrice(tp);
+  }, [cart]);
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate(`/search?term=${term}`);
@@ -85,7 +104,7 @@ export const Layout = () => {
                   {user ? (
                     <ul className="top-nav">
                       <li>
-                        <Link to="/register">
+                        <Link to="/">
                           <i className="fas fa-user-edit me-2"></i>
                           {user.name}
                         </Link>
@@ -148,16 +167,16 @@ export const Layout = () => {
                 <div className="col-lg-auto text-center text-lg-left header-item-holder">
                   <a href="#" className="header-item">
                     <i className="fas fa-heart me-2"></i>
-                    <span id="header-favorite">0</span>
+                    <span id="header-favorite">{totalQty}</span>
                   </a>
-                  <a href="cart.html" className="header-item">
+                  <Link to="/cart" className="header-item">
                     <i className="fas fa-shopping-bag me-2"></i>
                     <span id="header-qty" className="me-3">
-                      2
+                      {totalQty}
                     </span>
                     <i className="fas fa-money-bill-wave me-2"></i>
-                    <span id="header-price">$4,000</span>
-                  </a>
+                    <span id="header-price">Rs. {totalPrice}</span>
+                  </Link>
                 </div>
               </div>
 

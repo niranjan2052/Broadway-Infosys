@@ -5,6 +5,7 @@ import { DataTable } from "./DataTable";
 import { ProductSection } from "./ProductSection";
 import { ProductCard } from "./ProductCard";
 import { FormInput } from "./FormInput";
+import { AddToCart } from "./AddToCart";
 
 export {
   Layout,
@@ -14,4 +15,5 @@ export {
   ProductSection,
   ProductCard,
   FormInput,
+  AddToCart,
 };
