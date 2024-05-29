@@ -38,6 +38,10 @@ export const FrontRoutes = () => {
             path="cart"
             element={<PrivateRoutes element={<Pages.Front.Cart />}/>}
           ></Route>
+          <Route
+            path="profile"
+            element={<PrivateRoutes element={<Pages.Profile.Dashboard />}/>}
+          ></Route>
         </Route>
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
