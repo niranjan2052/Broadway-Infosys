@@ -104,7 +104,7 @@ export const Layout = () => {
                   {user ? (
                     <ul className="top-nav">
                       <li>
-                        <Link to="/">
+                        <Link to="/profile">
                           <i className="fas fa-user-edit me-2"></i>
                           {user.name}
                         </Link>
