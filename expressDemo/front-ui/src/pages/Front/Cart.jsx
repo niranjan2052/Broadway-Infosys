@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "@/components";
-import { imgUrl } from "@/lib";
+import { imgUrl, inStorage, removeStorage } from "@/lib";
+import { setCart, clearCart } from "@/store";
+import http from "@/http";
 
 export const Cart = () => {
   const user = useSelector((state) => state.user.value);
@@ -29,6 +31,51 @@ export const Cart = () => {
     setTotalPrice(tp);
   }, [cart]);
 
+  const handleQty = (id, qty) => {
+    let temp = { ...cart };
+    temp[id] = {
+      ...temp[id],
+      qty,
+    };
+    dispatch(setCart(temp));
+    inStorage("cart", JSON.stringify(temp), true);
+  };
+
+  const handleDelete = (id) => {
+    let temp = {};
+    for (let k in cart) {
+      if (k != id) {
+        temp = {
+          ...temp,
+          [k]: cart[k],
+        };
+      }
+    }
+    dispatch(setCart(temp));
+    inStorage("cart", JSON.stringify(temp), true);
+  };
+  const emptyCart = () => {
+    dispatch(clearCart());
+    removeStorage("cart");
+  };
+
+  const handleCheckOut = () => {
+    let data = [];
+    for (let k in cart) {
+      data.push({
+        productId: k,
+        qty: cart[k].qty,
+      });
+    }
+    setLoading(true);
+    http.post("/checkout", data).then(() => {
+      dispatch(clearCart());
+      removeStorage("cart");
+      navigate("/profile");
+    });
+    setLoading(false);
+  };
+
   return loading ? (
     <Loading />
   ) : (
@@ -45,73 +92,95 @@ export const Cart = () => {
             <div className="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
               <div className="row">
                 {Object.keys(cart).length > 0 ? (
-                  <div className="col-12">
-                    <table className="table table-striped table-hover table-sm">
-                      <thead>
-                        <tr>
-                          <th>Product</th>
-                          <th>Price</th>
-                          <th>Qty</th>
-                          <th>Amount</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {Object.keys(cart).map((k) => {
-                          let product = cart[k].product;
-                          let price =
-                            cart[k].product?.discounted_price > 0
-                              ? cart[k].product?.discounted_price
-                              : cart[k].product?.price;
-                          let qty = cart[k].qty;
-                          return (
-                            <tr key={k}>
-                              <td>
-                                <img
-                                  src={imgUrl(product.images[0])}
-                                  className="img-fluid me-3"
-                                />
-                                {product.name}
-                              </td>
-                              <td>Rs. {price}</td>
-                              <td>
-                                <input type="number" min="1" value={qty} />
-                              </td>
-                              <td>Rs. {price * qty}</td>
-                              <td>
-                                <button className="btn btn-link text-danger">
-                                  <i className="fas fa-times"></i>
-                                </button>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <th colspan="3" className="text-right">
-                            Total
-                          </th>
-                          <th>Rs. {totalPrice}</th>
-                          <th></th>
-                        </tr>
-                      </tfoot>
-                    </table>
-                  </div>
+                  <>
+                    <div className="col-12">
+                      <table className="table table-striped table-hover table-sm">
+                        <thead>
+                          <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>Amount</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Object.keys(cart).map((k) => {
+                            let product = cart[k].product;
+                            let price =
+                              cart[k].product?.discounted_price > 0
+                                ? cart[k].product?.discounted_price
+                                : cart[k].product?.price;
+                            let qty = cart[k].qty;
+                            return (
+                              <tr key={k}>
+                                <td>
+                                  <img
+                                    src={imgUrl(product.images[0])}
+                                    className="img-fluid me-3"
+                                  />
+                                  {product.name}
+                                </td>
+                                <td>Rs. {price}</td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    min="1"
+                                    value={qty}
+                                    onChange={({ target }) =>
+                                      handleQty(k, parseInt(target.value))
+                                    }
+                                  />
+                                </td>
+                                <td>Rs. {price * qty}</td>
+                                <td>
+                                  <button
+                                    className="btn btn-link text-danger"
+                                    onClick={() => handleDelete(k)}
+                                  >
+                                    <i className="fas fa-times"></i>
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <th colSpan="2" className="text-right">
+                              Total
+                            </th>
+                            <th colSpan="1" className="text-right">
+                              {totalQty}
+                            </th>
+                            <th colSpan="1" className="text-right">
+                              Rs. {totalPrice}
+                            </th>
+                            <th></th>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                    <div className="col-12 text-right">
+                      <button
+                        className="btn btn-outline-secondary me-3"
+                        type="submit"
+                        onClick={() => emptyCart()}
+                      >
+                        Clear Cart
+                      </button>
+                      <a
+                        href="#"
+                        className="btn btn-outline-success"
+                        onClick={handleCheckOut}
+                      >
+                        Checkout
+                      </a>
+                    </div>
+                  </>
                 ) : (
-                  <h5>Cart is Empty</h5>
+                  <h5 className="text-center">Cart is Empty</h5>
                 )}
-                <div className="col-12 text-right">
-                  <button
-                    className="btn btn-outline-secondary me-3"
-                    type="submit"
-                  >
-                    Update
-                  </button>
-                  <a href="#" className="btn btn-outline-success">
-                    Checkout
-                  </a>
-                </div>
               </div>
             </div>
           </div>
