@@ -42,6 +42,7 @@ export const Layout = () => {
         setLoading(false);
       });
   }, []);
+  //Code to set user after refreshing page from localStrage
   useEffect(() => {
     if (!user) {
       const token = fromStorage("frontToken");
